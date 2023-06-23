@@ -6,7 +6,7 @@ class Skills extends Component {
   }
 
   render() {
-    return <h1>Experience</h1>;
+    return <h1>Skills</h1>;
   }
 }
 
