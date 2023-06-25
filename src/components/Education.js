@@ -19,11 +19,12 @@ class Education extends Component {
     });
   }
 
-  editItem(index, name, degree) {
+  editItem(index, name, date, degree) {
     // Create a new array form the state, then modify the parts needed
     let newArray = this.state.list;
     newArray[index][0] = name;
-    newArray[index][1] = degree;
+    newArray[index][1] = date;
+    newArray[index][2] = degree;
 
     // Set state with new array
     this.setState({
@@ -37,12 +38,13 @@ class Education extends Component {
 
     // Read the form data & add to state or go to edit if form in edit mode
     const name = e.target.name.value;
+    const dates = e.target.dates.value;
     const degree = e.target.degree.value;
     if (this.state.edit == null) {
-      const all = [name, degree];
+      const all = [name, dates, degree];
       this.addItem(all);
     } else {
-      this.editItem(this.state.edit, name, degree);
+      this.editItem(this.state.edit, name, dates, degree);
     }
 
     // Clear form input
@@ -86,7 +88,10 @@ class Education extends Component {
                 Name of university: <input name="name" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
               </label>
               <label>
-                Degree/Qualification: <input name="degree" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
+                Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
+              </label>
+              <label>
+                Degree/Qualification: <input name="degree" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][2] : "" }/>
               </label>
                 <button type="submit">Add to list</button>
               </form>
@@ -99,6 +104,7 @@ class Education extends Component {
             <div key={i} className="educationItem">
               <p>{item[0]}</p>
               <p>{item[1]}</p>
+              <p>{item[2]}</p>
               <button className="editEducation" onClick={() => this.handleEdit(i)}>Edit</button>
               <button className="deleteEducation" onClick={() => this.handleDelete(i)}>Delete</button>
             </div>)
