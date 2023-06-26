@@ -80,24 +80,26 @@ class Experience extends Component {
     const showing = this.state.formShow;
 
     return (
-      <div>
+      <div className="experience">
 
         <h1>Experience</h1>
         { showing ?
             <div>
               <form method="post" onSubmit={this.handleSubmit}>
-              <label>
-                Name of company: <input name="company" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
-              </label>
-              <label>
-                Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
-              </label>
-              <label>
-                Role: <input name="role" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][2] : "" }/>
-              </label>
-              <label>
-                description: <input name="description" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][3] : "" }/>
-              </label>
+                <div className="topExp">
+                  <label>
+                    Name of company: <input name="company" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
+                  </label>
+                  <label>
+                    Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
+                  </label>
+                </div>
+                <label>
+                  Role: <input name="role" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][2] : "" }/>
+                </label>
+                <label>
+                  Description: <input name="description" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][3] : "" }/>
+                </label>
                 <button type="submit">Add to list</button>
               </form>
             </div>
@@ -107,8 +109,10 @@ class Experience extends Component {
         <div className="experienceList">
           {this.state.list.map((item, i) => 
             <div key={i} className="experienceItem">
-              <p>{item[0]}</p>
-              <p>{item[1]}</p>
+              <div className="topExp">
+                <p>{item[0]}</p>
+                <p>{item[1]}</p>
+              </div>
               <p>{item[2]}</p>
               <p>{item[3]}</p>
               <button className="editExperience" onClick={() => this.handleEdit(i)}>Edit</button>
@@ -117,7 +121,7 @@ class Experience extends Component {
           }
         </div>
 
-        <button onClick={() => this.setState({ formShow: !showing })}>+</button>
+        <button className="addExp" onClick={() => this.setState({ formShow: !showing })}>+</button>
 
       </div>
     );

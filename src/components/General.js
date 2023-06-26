@@ -4,7 +4,7 @@ import InputLine from './InputLine';
 class General extends Component {
     render() {
         return( 
-            <div>
+            <div className="general">
                 <div className='Name-info'>
                     < InputLine text='Full name' tag='h1'/>
                     < InputLine text='Occupation' tag='h2'/>

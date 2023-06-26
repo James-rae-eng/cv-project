@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container {
+  width: 700px;
+  margin: 50px;
+  padding: 20px;
+  border: 2px solid gray;
+}
+
+.general {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding-bottom: 30px;
+}
+
+.contact {
+  align-self: center;
+}
+
+.education, .experience {
+  border-bottom: 1px solid gray;
+}
+
+.topEdu, .TopExp {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.addEdu, .addExp, .addSkill {
+  margin: 10px 0px;
+}

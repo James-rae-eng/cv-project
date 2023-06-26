@@ -78,18 +78,20 @@ class Education extends Component {
     const showing = this.state.formShow;
 
     return (
-      <div>
+      <div className="education">
 
         <h1>Education</h1>
         { showing ?
             <div>
               <form method="post" onSubmit={this.handleSubmit}>
-              <label>
-                Name of university: <input name="name" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
-              </label>
-              <label>
-                Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
-              </label>
+              <div className="topEdu">
+                <label>
+                  Name of university: <input name="name" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
+                </label>
+                <label>
+                  Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
+                </label>
+              </div>
               <label>
                 Degree/Qualification: <input name="degree" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][2] : "" }/>
               </label>
@@ -101,17 +103,19 @@ class Education extends Component {
 
         <div className="educationList">
           {this.state.list.map((item, i) => 
-            <div key={i} className="educationItem">
-              <p>{item[0]}</p>
-              <p>{item[1]}</p>
+            <div key={i} className="eduItem">
+              <div className="topEdu">
+                <p>{item[0]}</p>
+                <p>{item[1]}</p>
+              </div>
               <p>{item[2]}</p>
-              <button className="editEducation" onClick={() => this.handleEdit(i)}>Edit</button>
-              <button className="deleteEducation" onClick={() => this.handleDelete(i)}>Delete</button>
+              <button className="editEdu" onClick={() => this.handleEdit(i)}>Edit</button>
+              <button className="deleteEdu" onClick={() => this.handleDelete(i)}>Delete</button>
             </div>)
           }
         </div>
 
-        <button onClick={() => this.setState({ formShow: !showing })}>+</button>
+        <button className="addEdu" onClick={() => this.setState({ formShow: !showing })}>+</button>
 
       </div>
     );

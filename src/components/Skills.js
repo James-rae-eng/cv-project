@@ -74,7 +74,7 @@ class Skills extends Component {
     const showing = this.state.formShow;
 
     return (
-      <div>
+      <div className='skills'>
 
         <h1>Skills</h1>
         { showing ?
@@ -99,7 +99,7 @@ class Skills extends Component {
           }
         </div>
 
-        <button onClick={() => this.setState({ formShow: !showing })}>+</button>
+        <button className="addSkill" onClick={() => this.setState({ formShow: !showing })}>+</button>
 
       </div>
     );
