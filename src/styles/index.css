@@ -35,7 +35,7 @@ code {
   border-bottom: 1px solid gray;
 }
 
-.topEdu, .TopExp {
+.topEdu, .topExp {
   display: flex;
   flex-direction: row;
   gap: 50px;

@@ -1,39 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 
-class Experience extends Component {
-  constructor() {
-    super();
+const Experience = () => {
+  const [list, setList] = useState([]);
+  const [formShow, setFormshow] = useState(false);
+  const [edit, setEdit] = useState(null);
 
-    this.state = {
-      list: [],
-      formShow: false,
-      edit: null,
-    };
+  const addItem = (item) => {
+    setList([...list, [...item]]);
+  };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  addItem(item) {
-    this.setState({
-      list: [...this.state.list, [...item]]
-    });
-  }
-
-  editItem(index, company, dates, role, description) {
+  const editItem = (index, company, dates, role, description) => {
     // Create a new array form the state, then modify the parts needed
-    let newArray = this.state.list;
+    let newArray = list;
     newArray[index][0] = company;
     newArray[index][1] = dates;
     newArray[index][2] = role;
     newArray[index][3] = description;
 
     // Set state with new array
-    this.setState({
-      list: newArray
-    });
+    setList(newArray);
   }
 
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     // Prevent the browser from reloading the page
     e.preventDefault();
 
@@ -42,90 +30,80 @@ class Experience extends Component {
     const dates = e.target.dates.value;
     const role = e.target.role.value;
     const description = e.target.description.value;
-    if (this.state.edit == null) {
+    if (edit == null) {
       const all = [company, dates, role, description];
-      this.addItem(all);
+      addItem(all);
     } else {
-      this.editItem(this.state.edit, company, dates, role, description);
+      editItem(edit, company, dates, role, description);
     }
 
     // Clear form input
     e.target.reset();
 
     // Hide input form & reset edit state
-    this.setState({formShow: false})
-    this.setState({edit: null});
+    setFormshow(false);
+    setEdit(null);
   }
 
-  handleEdit(index) {
+  const handleEdit = (index) => {
     // Fill form with details from state
-    this.setState({edit: index});
+    setEdit(index);
 
     // Show form
-    this.setState({formShow: true});
+    setFormshow(true);
   }
 
-  handleDelete(index) {
+  const handleDelete = (index) => {
     // Create new array and delete item specified
-    let newArray = this.state.list;
+    let newArray = list;
     newArray.splice(index, 1);
 
     // Set state with new updated array
-    this.setState({
-      list: newArray
-    });
+    setList(newArray);
   }
- 
-  render() {
-    const showing = this.state.formShow;
 
-    return (
-      <div className="experience">
-
-        <h1>Experience</h1>
-        { showing ?
-            <div>
-              <form method="post" onSubmit={this.handleSubmit}>
-                <div className="topExp">
-                  <label>
-                    Name of company: <input name="company" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][0] : "" }/>
-                  </label>
-                  <label>
-                    Year (From - to): <input name="dates" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][1] : "" }/>
-                  </label>
-                </div>
-                <label>
-                  Role: <input name="role" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][2] : "" }/>
-                </label>
-                <label>
-                  Description: <input name="description" defaultValue={this.state.edit !== null ? this.state.list[this.state.edit][3] : "" }/>
-                </label>
-                <button type="submit">Add to list</button>
-              </form>
-            </div>
-          : null
-        }
-
-        <div className="experienceList">
-          {this.state.list.map((item, i) => 
-            <div key={i} className="experienceItem">
+  return (
+    <div className="experience">
+      <h1>Experience</h1>
+      { formShow ?
+          <div>
+            <form method="post" onSubmit={handleSubmit}>
               <div className="topExp">
-                <p>{item[0]}</p>
-                <p>{item[1]}</p>
+                <label>
+                  Name of company: <input name="company" defaultValue={edit !== null ? list[edit][0] : "" }/>
+                </label>
+                <label>
+                  Year (From - to): <input name="dates" defaultValue={edit !== null ? list[edit][1] : "" }/>
+                </label>
               </div>
-              <p>{item[2]}</p>
-              <p>{item[3]}</p>
-              <button className="editExperience" onClick={() => this.handleEdit(i)}>Edit</button>
-              <button className="deleteExperience" onClick={() => this.handleDelete(i)}>Delete</button>
-            </div>)
-          }
-        </div>
-
-        <button className="addExp" onClick={() => this.setState({ formShow: !showing })}>+</button>
-
+              <label>
+                Role: <input name="role" defaultValue={edit !== null ? list[edit][2] : "" }/>
+              </label>
+              <label>
+                Description: <input name="description" defaultValue={edit !== null ? list[edit][3] : "" }/>
+              </label>
+              <button type="submit">Add to list</button>
+            </form>
+          </div>
+        : null
+      }
+      <div className="experienceList">
+        {list.map((item, i) => 
+          <div key={i} className="experienceItem">
+            <div className="topExp">
+              <p>{item[0]}</p>
+              <p>{item[1]}</p>
+            </div>
+            <p>{item[2]}</p>
+            <p>{item[3]}</p>
+            <button className="editExperience" onClick={() => handleEdit(i)}>Edit</button>
+            <button className="deleteExperience" onClick={() => handleDelete(i)}>Delete</button>
+          </div>)
+        }
       </div>
-    );
-  }
+      <button className="addExp" onClick={() => setFormshow(!formShow)}>+</button>
+    </div>
+  );
 }
 
 export default Experience;
